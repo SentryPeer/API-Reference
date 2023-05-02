@@ -3,7 +3,7 @@ export const description =
 
 # Messages
 
-Messages are what conversations are made of in Protocol — they are the basic building blocks of your conversations with your Protocol contacts. On this page, we'll dive into the different message endpoints you can use to manage messages programmatically. We'll look at how to query, send, update, and delete messages. {{ className: 'lead' }}
+Messages are what conversations are made of in SentryPeer — they are the basic building blocks of your conversations with your SentryPeer contacts. On this page, we'll dive into the different message endpoints you can use to manage messages programmatically. We'll look at how to query, send, update, and delete messages. {{ className: 'lead' }}
 
 ## The message model
 
@@ -67,7 +67,7 @@ The message model contains all the information about the messages and attachment
     <CodeGroup title="Request" tag="GET" label="/v1/messages">
 
     ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/messages \
+    curl -G https://sentrypeer.com/api/messages \
       -H "Authorization: Bearer {token}" \
       -d conversation_id=xgQQXg3hrtjh7AvZ \
       -d limit=10
@@ -90,7 +90,7 @@ The message model contains all the information about the messages and attachment
     ```
 
     ```php
-    $client = new \Protocol\ApiClient($token);
+    $client = new \SentryPeer\ApiClient($token);
 
     $client->messages->list();
     ```
@@ -164,7 +164,7 @@ The message model contains all the information about the messages and attachment
     <CodeGroup title="Request" tag="POST" label="/v1/messages">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/messages \
+    curl https://sentrypeer.com/api/messages \
       -H "Authorization: Bearer {token}" \
       -d conversation_id="xgQQXg3hrtjh7AvZ" \
       -d message="You’re what the French call ‘les incompetents.’"
@@ -193,7 +193,7 @@ The message model contains all the information about the messages and attachment
     ```
 
     ```php
-    $client = new \Protocol\ApiClient($token);
+    $client = new \SentryPeer\ApiClient($token);
 
     $client->messages->send([
       'conversation_id' => 'xgQQXg3hrtjh7AvZ',
@@ -242,7 +242,7 @@ The message model contains all the information about the messages and attachment
     <CodeGroup title="Request" tag="GET" label="/v1/messages/SIuAFUNKdSYHZF2w">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/messages/SIuAFUNKdSYHZF2w \
+    curl https://sentrypeer.com/api/messages/SIuAFUNKdSYHZF2w \
       -H "Authorization: Bearer {token}"
     ```
 
@@ -263,7 +263,7 @@ The message model contains all the information about the messages and attachment
     ```
 
     ```php
-    $client = new \Protocol\ApiClient($token);
+    $client = new \SentryPeer\ApiClient($token);
 
     $client->messages->get('SIuAFUNKdSYHZF2w');
     ```
@@ -323,7 +323,7 @@ The message model contains all the information about the messages and attachment
     <CodeGroup title="Request" tag="PUT" label="/v1/messages/SIuAFUNKdSYHZF2w">
 
     ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/messages/SIuAFUNKdSYHZF2w \
+    curl -X PUT https://sentrypeer.com/api/messages/SIuAFUNKdSYHZF2w \
       -H "Authorization: Bearer {token}" \
       -d reactions[red_angry_face][]="KateMcCallister"
     ```
@@ -350,7 +350,7 @@ The message model contains all the information about the messages and attachment
     ```
 
     ```php
-    $client = new \Protocol\ApiClient($token);
+    $client = new \SentryPeer\ApiClient($token);
 
     $client->messages->update('SIuAFUNKdSYHZF2w', [
       'reactions' => [
@@ -406,7 +406,7 @@ The message model contains all the information about the messages and attachment
     <CodeGroup title="Request" tag="DELETE" label="/v1/messages/SIuAFUNKdSYHZF2w">
 
     ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/messages/SIuAFUNKdSYHZF2w \
+    curl -X DELETE https://sentrypeer.com/api/messages/SIuAFUNKdSYHZF2w \
       -H "Authorization: Bearer {token}"
     ```
 
@@ -427,7 +427,7 @@ The message model contains all the information about the messages and attachment
     ```
 
     ```php
-    $client = new \Protocol\ApiClient($token);
+    $client = new \SentryPeer\ApiClient($token);
 
     $client->messages->delete('SIuAFUNKdSYHZF2w');
     ```

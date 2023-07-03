@@ -1,16 +1,16 @@
 export const description =
-  'In this guide, we will talk about what happens when something goes wrong while you work with the API.'
+  'In this guide, we will talk about what happens when something goes wrong while you work with our API.'
 
 # Errors
 
-In this guide, we will talk about what happens when something goes wrong while you work with the API. Mistakes happen, and mostly they will be yours, not ours. Let's look at some status codes and error types you might encounter. {{ className: 'lead' }}
+In this guide, we will talk about what happens when something goes wrong whilst you work with our API. Mistakes happen, and mostly they will be yours, not ours (hopefully). Let's look at some status codes and error types you might encounter. {{ className: 'lead' }}
 
-You can tell if your request was successful by checking the status code when receiving an API response. If a response comes back unsuccessful, you can use the error type and error message to figure out what has gone wrong and do some rudimentary debugging (before contacting support).
+You can tell if your request was successful by checking the status code when receiving an API response. If a response comes back unsuccessful, you can use the error type and error message to figure out what has gone wrong and do some rudimentary debugging (before contacting [support](https://sentrypeer.com/contact)).
 
 <Note>
   Before reaching out to support with an error, please be aware that 99% of all
-  reported errors are, in fact, user errors. Therefore, please carefully check
-  your code before contacting SentryPeer support.
+  reported errors are, in fact, user errors (hopefully). Therefore, please carefully check
+  your code before contacting [SentryPeer support](https://sentrypeer.com/contact).
 </Note>
 
 ---
@@ -21,14 +21,17 @@ Here is a list of the different categories of status codes returned by the Sentr
 
 <Properties>
   <Property name="2xx">
-    A 2xx status code indicates a successful response.
+    A 2xx status code indicates a successful response. For example, if querying for a phone number or IP address match, you will receive a 200 status code.
   </Property>
   <Property name="4xx">
     A 4xx status code indicates a client error — this means it's a _you_
-    problem.
+    problem :)
+  </Property>
+  <Property name="429">
+    A 429 status code means that you are sending too many requests to the API. Please slow down or upgrade your plan.
   </Property>
   <Property name="5xx">
-    A 5xx status code indicates a server error — you won't be seeing these.
+    A 5xx status code indicates a server error — you won't be seeing these (if we've done our job right).
   </Property>
 </Properties>
 
@@ -41,14 +44,17 @@ Here is a list of the different categories of status codes returned by the Sentr
 
     Whenever a request is unsuccessful, the SentryPeer API will return an error response with an error type and message. You can use this information to understand better what has gone wrong and how to fix it. Most of the error messages are pretty helpful and actionable.
 
-    Here is a list of the two error types supported by the SentryPeer API — use these to understand what you have done wrong.
+    Here is an example list of the error types supported by the SentryPeer API — use these to understand what you have done wrong.
 
     <Properties>
-      <Property name="api_error">
-        This means that we made an error, which is highly speculative and unlikely.
+      <Property name="error">
+        This means that you made an error (we hope not).
       </Property>
-      <Property name="invalid_request">
-        This means that you made an error, which is much more likely.
+      <Property name="status">
+        This means that you exceeded your plan's request limit.
+      </Property>
+      <Property name="message">
+        This is an informational message.
       </Property>
     </Properties>
 
@@ -57,9 +63,45 @@ Here is a list of the different categories of status codes returned by the Sentr
 
     ```bash {{ title: "Error response" }}
     {
-      "type": "api_error",
-      "message": "No way this is happening!?",
-      "documentation_url": "https://protocol.chat/docs/errors/api_error"
+      "error": "Invalid token",
+      "reason": "exp"
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Rate limiting
+
+<Row>
+  <Col>
+
+    The SentryPeer API is rate-limited to prevent abuse. If you exceed your plan's request limit, you will receive a 429 status code. You can upgrade your plan to increase your request limit.
+
+    <Note>
+      If you are receiving a 429 status code, please [upgrade your plan](https://sentrypeer.com/billing) or
+      contact [support](https://sentrypeer.com/contact).
+    </Note>
+
+    You can see your current plan's request limit by visiting the [pricing page](https://sentrypeer.com/pricing) or looking at the response headers on your API requests:
+
+    ```bash {{ title: "Response headers on the Tester Plan" }}
+    ratelimit-limit: 5
+    ratelimit-policy: 5;w=3600;policy="leaky bucket"
+    ratelimit-remaining: 3
+    ratelimit-reset: 3575
+    ```
+
+    We follow the [RateLimit header fields for HTTP](https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/) RFC draft specification.
+
+  </Col>
+  <Col>
+
+    ```bash {{ title: "429 response" }}
+    {
+      "status": "429 Too Many Requests"
     }
     ```
 

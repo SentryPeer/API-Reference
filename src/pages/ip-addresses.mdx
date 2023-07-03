@@ -1,0 +1,37 @@
+export const description =
+    'On this page, we’ll dive into the IP address endpoint to check if a phone number has been seen by the SentryPeer honeypots.'
+
+# IP Addresses
+
+IP addresses are where the fraudsters are originating their early reconnaissance attempts from — they are the source IP address the fraudsters use to probe SentryPeer honeypots. On this page, we'll look at how to query them so that if you are getting SIP messages from one of these IP addresses, you should block them. {{ className: 'lead' }}
+
+---
+
+## Query a phone number {{ tag: 'GET', label: '/api/ip-addresses/:ip-address' }}
+
+<Row>
+    <Col>
+
+        This endpoint allows you to query an IP address. If you have set up any [alert integrations](https://sentrypeer.com/integrations),
+        you will receive an email, slack message or SentryPeer webhook if the IP address has been registered by the SentryPeer honeypots and matches your search.
+
+    </Col>
+    <Col sticky>
+
+        <CodeGroup title="Request" tag="GET" label="/api/ip-addresses/:ip-address">
+
+            ```bash {{ title: 'cURL' }}
+            curl https://sentrypeer.com/api//api/ip-addresses/X.X.X.X \
+            -H "Authorization: Bearer {token}"
+            ```
+
+        </CodeGroup>
+
+        ```json {{ title: 'Response' }}
+        {
+            "message": "IP Address not found"
+        }
+        ```
+
+    </Col>
+</Row>

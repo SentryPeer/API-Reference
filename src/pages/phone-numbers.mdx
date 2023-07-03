@@ -1,0 +1,37 @@
+export const description =
+  'On this page, we’ll dive into the Phone Number endpoint to check if a phone number has been seen by the SentryPeer honeypots.'
+
+# Phone Numbers
+
+Phone Numbers are what we are really interested in at SentryPeer — they are the phone numbers fraudsters try to call to see if they can get an external line for a low cost test call **before** revealing their money making expensive phone numbers. On this page, we'll look at how to query them. {{ className: 'lead' }}
+
+---
+
+## Query a phone number {{ tag: 'GET', label: '/api/phone-numbers/:phone-number' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to query a phone number. If you have set up any [alert integrations](https://sentrypeer.com/integrations),
+    you will receive an email, slack message or SentryPeer webhook if the phone number has been seen by the SentryPeer honeypots.
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/api/phone-numbers/:phone-number">
+
+    ```bash {{ title: 'cURL' }}
+    curl https://sentrypeer.com/api/phone-numbers/01414960000 \
+      -H "Authorization: Bearer {token}"
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "message": "Phone Number not found."
+    }
+    ```
+
+  </Col>
+</Row>

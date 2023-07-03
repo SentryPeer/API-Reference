@@ -5,26 +5,28 @@ export const description =
 
 You'll need to authenticate your requests to access any of the endpoints in the SentryPeer API. In this guide, we'll look at how authentication works. SentryPeer offers two ways to authenticate your API requests: Basic authentication and OAuth2 with a token — OAuth2 is the recommended way. {{ className: 'lead' }}
 
-## OAuth2 with bearer token
+## OAuth2 client credentials request
 
-The only way to authenticate with the SentryPeer API is by using OAuth2. When establishing a connection using OAuth2, you will need your access token — you will find it in the [SentryPeer dashboard](#) under API settings. Here's how to add the token to the request header using cURL:
+The only way to authenticate with the SentryPeer API is by using OAuth2.
+When establishing a connection using OAuth2, you will first need your client credentials,
+then you can request your access token —
+you will find your client credentials in the [SentryPeer Settings](https://sentrypeer.com/settings) section after creating a client.
+Here's how to request a token using cURL:
 
-```bash {{ title: 'Example request with bearer token' }}
-curl https://sentrypeer.com/api/conversations \
-  -H "Authorization: Bearer {token}"
+```bash {{ title: 'Example request to retrieve your bearer token' }}
+curl --request POST --url https://authz.sentrypeer.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"{ your_client_id }","client_secret":"{ your_client_secret", "audience":"https://sentrypeer.com/api","grant_type":"client_credentials"}'
 ```
 
-Always keep your token safe and reset it if you suspect it has been compromised.
+Always keep your client credentials safe and reset your client secret if you suspect it has been compromised. Better yet,
+create a new client and delete the old one.
 
-## Using an SDK
+## Querying a Resource
 
-If you use one of our official SDKs, you won't have to worry about any of the above — fetch your access token from the [SentryPeer dashboard](#) under API settings, and the client library will take care of the rest. All the client libraries use OAuth2 behind the scenes.
+Once you have requested your token (tokens are valid for 24 hours), you can start making requests to the SentryPeer API.
 
-<div className="not-prose">
-  <Button
-    href="/sdks"
-    variant="text"
-    arrow="right"
-    children="Check out our list of first-party SDKs"
-  />
-</div>
+```bash {{ title: 'Example request with bearer token' }}
+curl https://sentrypeer.com/api/phone-numbers/{phone-number} \
+  --header "Authorization: Bearer {your_token_from_previous_step}"
+```

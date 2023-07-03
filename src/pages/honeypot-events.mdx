@@ -1,0 +1,107 @@
+export const description =
+  'On this page, we’ll dive into the different message endpoints you can use to manage messages programmatically.'
+
+# Honeypot Events
+
+Events from our honeypots and yours are what drives SentryPeer — they are the basic building blocks of all SentryPeer data. We'll look at how to send events messages. {{ className: 'lead' }}
+
+<Note>
+    You can only submit honeypot events to SentryPeer if you are on the [Contributor Plan](https://sentrypeer.com/pricing). Only you can query your own events and they do not form part of the SentryPeer data set, so there is no risk of poisoning our data. It's also much easier to run an official [SentryPeer node](https://sentrypeer.org).
+</Note>
+
+## The event model
+
+The event model contains all the information about a SIP probe that a honeypot detects. You can see a full example in the [SentryPeer node docs](https://github.com/SentryPeer/SentryPeer#json-log-format). It is a JSON object with the following properties:
+
+### Properties
+
+<Properties>
+  <Property name="app_name" type="string">
+    The name of the application that sent the event.
+  </Property>
+  <Property name="app_version" type="string">
+    The version of the application that sent the event.
+  </Property>
+  <Property name="event_timestamp" type="string">
+    The timestamp of the event.
+  </Property>
+  <Property name="event_uuid" type="string">
+    The UUID of the event. This is validated as a unique identifier and valid UUID.
+  </Property>
+  <Property name="created_by_node_id" type="string">
+    The UUID of the node that created the event.
+  </Property>
+  <Property name="collected_method" type="string">
+    The method used to collect the event. responsive or passive.
+  </Property>
+  <Property name="transport_type" type="string">
+    The transport type of the event. UDP, TCP or TLS.
+  </Property>
+  <Property name="source_ip" type="string">
+    The source IP address of the event. This is the IP address of the attacker.
+  </Property>
+  <Property name="destination_ip" type="string">
+    The destination IP address of the event. This is the IP address of the honeypot.
+  </Property>
+  <Property name="called_number" type="string">
+    The phone number of the SIP event. This is the number the attacker is trying to call.
+  </Property>
+  <Property name="sip_method" type="string">
+    The SIP method of the event. For example, INVITE, REGISTER, OPTIONS, etc.
+  </Property>
+  <Property name="sip_user_agent" type="string">
+    The SIP User Agent of the event. For example, Avaya, Asterisk, etc.
+  </Property>
+  <Property name="sip_message" type="string">
+    The full SIP message of the event.
+ </Property>
+</Properties>
+
+---
+
+## Send a honeypot event {{ tag: 'POST', label: '/api/events' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to send a your own honeypot events to SentryPeer.
+
+    ### Required attributes
+
+    As per the event model above.
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/api/events">
+
+    ```bash {{ title: 'cURL' }}
+    curl https://sentrypeer.com/api/events \
+      -H "Authorization: Bearer {token}" \
+      -d '{
+            "app_name":"sentrypeer",
+            "app_version":"v3.0.0",
+            "event_timestamp":"2022-02-22 11:19:15.848934346",
+            "event_uuid":"4503cc92-26cb-4b3e-bb33-69a83fa09321",
+            "created_by_node_id":"4503cc92-26cb-4b3e-bb33-69a83fa09321",
+            "collected_method":"responsive",
+            "transport_type":"UDP",
+            "source_ip":"45.134.144.128",
+            "destination_ip":"XX.XX.XX.XX",
+            "called_number":"0046812118532",
+            "sip_method":"OPTIONS",
+            "sip_user_agent":"friendly-scanner",
+            "sip_message":"full SIP message"
+        }'
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response 201 Created' }}
+    {
+      "message": "Thanks for using SentryPeer!",
+    }
+    ```
+
+  </Col>
+</Row>
+

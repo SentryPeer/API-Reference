@@ -189,7 +189,6 @@ export const navigation = [
     links: [
       { title: 'Introduction', href: '/' },
       { title: 'Quickstart', href: '/quickstart' },
-      { title: 'SDKs', href: '/sdks' },
       { title: 'Authentication', href: '/authentication' },
       { title: 'Errors', href: '/errors' },
     ],
@@ -197,8 +196,9 @@ export const navigation = [
   {
     title: 'Resources',
     links: [
-      { title: 'Conversations', href: '/conversations' },
-      { title: 'Messages', href: '/messages' },
+      { title: 'Phone Numbers', href: '/phone-numbers' },
+      { title: 'IP Addresses', href: '/ip-addresses' },
+      { title: 'Honeypot Events', href: '/honeypot-events' },
     ],
   },
 ]
@@ -208,8 +208,8 @@ export function Navigation(props) {
     <nav {...props}>
       <ul role="list">
         <TopLevelNavItem href="/">API</TopLevelNavItem>
-        <TopLevelNavItem href="#">Documentation</TopLevelNavItem>
-        <TopLevelNavItem href="#">Support</TopLevelNavItem>
+        <TopLevelNavItem href="/">Documentation</TopLevelNavItem>
+        <TopLevelNavItem href="https://sentrypeer.com/contact">Support</TopLevelNavItem>
         {navigation.map((group, groupIndex) => (
           <NavigationGroup
             key={group.title}
@@ -218,7 +218,7 @@ export function Navigation(props) {
           />
         ))}
         <li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
-          <Button href="#" variant="filled" className="w-full">
+          <Button href="https://sentrypeer.com/login" variant="filled" className="w-full">
             Sign in
           </Button>
         </li>

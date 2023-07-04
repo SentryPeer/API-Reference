@@ -16,7 +16,12 @@ Here's how to request a token using cURL:
 ```bash {{ title: 'Example request to retrieve your bearer token' }}
 curl --request POST --url https://authz.sentrypeer.com/oauth/token \
   --header 'content-type: application/json' \
-  --data '{"client_id":"{ your_client_id }","client_secret":"{ your_client_secret", "audience":"https://sentrypeer.com/api","grant_type":"client_credentials"}'
+  --data '{
+            "client_id": "your_client_id",
+            "client_secret": "your_client_secret",
+            "audience": "https://sentrypeer.com/api",
+            "grant_type": "client_credentials"
+          }'
 ```
 
 Always keep your client credentials safe and reset your client secret if you suspect it has been compromised. Better yet,

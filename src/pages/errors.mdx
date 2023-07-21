@@ -68,6 +68,16 @@ Here is a list of the different categories of status codes returned by the Sentr
     }
     ```
 
+    Or if you are using the wrong client to retrieve your bearer token:
+
+    ```bash {{ title: "Error response" }}
+    {
+        "error": "insufficient_permissions",
+        "error_description": "Insufficient claim for the token",
+        "message": "Permission denied. Are you using the correct client_id to generate your token?"
+    }
+    ```
+
   </Col>
 </Row>
 

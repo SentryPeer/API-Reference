@@ -1,5 +1,5 @@
 export const description =
-    'On this page, we’ll dive into the IP address endpoint to check if a phone number has been seen by the SentryPeer honeypots.'
+    'On this page, we’ll dive into the IP address endpoint to check if am IP address has been seen by the SentryPeer honeypots.'
 
 # IP Addresses
 
@@ -7,7 +7,7 @@ IP addresses are where the fraudsters are originating their early reconnaissance
 
 ---
 
-## Query a phone number {{ tag: 'GET', label: '/api/ip-addresses/:ip-address' }}
+## Query an IP Address {{ tag: 'GET', label: '/api/ip-addresses/:ip-address' }}
 
 <Row>
     <Col>
@@ -21,7 +21,7 @@ IP addresses are where the fraudsters are originating their early reconnaissance
         <CodeGroup title="Request" tag="GET" label="/api/ip-addresses/:ip-address">
 
             ```bash {{ title: 'cURL' }}
-            curl https://sentrypeer.com/api//api/ip-addresses/X.X.X.X \
+            curl https://sentrypeer.com/api/ip-addresses/X.X.X.X \
             -H "Authorization: Bearer {token}"
             ```
 
